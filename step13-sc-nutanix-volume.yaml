@@ -1,0 +1,21 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: nutanix-volume
+provisioner: csi.nutanix.com
+parameters:
+  csi.storage.k8s.io/provisioner-secret-name: ntnx-pc-secret
+  csi.storage.k8s.io/provisioner-secret-namespace: ntnx-system
+  csi.storage.k8s.io/node-publish-secret-name: ntnx-pc-secret
+  csi.storage.k8s.io/node-publish-secret-namespace: ntnx-system
+  csi.storage.k8s.io/controller-expand-secret-name: ntnx-pc-secret
+  csi.storage.k8s.io/controller-expand-secret-namespace: ntnx-system
+  storageContainer: "angharad-prod" # Your AOS storage container
+  fsType: "ext4"
+  storageType: NutanixVolumes
+  prismElementRef: "000641e2-dcda-a779-225a-7cc255903eab" #prism element UUID of the cluster where the storage container is located
+  dataServiceIP: "10.68.230.71" # AOS Data Services IP
+allowVolumeExpansion: true
+reclaimPolicy: Delete

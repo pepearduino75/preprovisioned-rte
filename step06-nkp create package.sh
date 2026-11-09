@@ -1,0 +1,1 @@
+nkp create package-bundle ubuntu-24.04 --artifacts-directory ./nkp-artifacts

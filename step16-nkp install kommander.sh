@@ -1,0 +1,1 @@
+nkp install kommander  --airgapped

@@ -1,0 +1,48 @@
+---
+apiVersion: infrastructure.cluster.konvoy.d2iq.io/v1alpha1
+kind: PreprovisionedInventory
+metadata:
+  name: $CLUSTER_NAME-control-plane
+  namespace: default
+  labels:
+    cluster.x-k8s.io/cluster-name:
+    clusterctl.cluster.x-k8s.io/move: ""
+spec:
+  hosts:
+    # Create as many of these as needed to match your infrastructure
+    # Note that the command line parameter --control-plane-replicas determines how many control plane nodes will actually be used.
+    #
+    - address: 10.68.42.178
+    - address: 10.68.42.179
+    - address: 10.68.42.180
+  sshConfig:
+    port: 22
+    # This is the username used to connect to your infrastructure. This user must be root or
+    # have the ability to use sudo without a password
+    user: nutanix
+    privateKeyRef:
+      # This is the name of the secret you created in the previous step. It must exist in the same
+      # namespace as this inventory object.
+      name: $CLUSTER_NAME-ssh-key
+      namespace: default
+---
+apiVersion: infrastructure.cluster.konvoy.d2iq.io/v1alpha1
+kind: PreprovisionedInventory
+metadata:
+  name: $CLUSTER_NAME-md-0
+  namespace: default
+  labels:
+    cluster.x-k8s.io/cluster-name:
+    clusterctl.cluster.x-k8s.io/move: ""
+spec:
+  hosts:
+    - address: 10.68.42.181
+    - address: 10.68.42.182
+    - address: 10.68.42.183
+    - address: 10.68.42.184
+  sshConfig:
+    port: 22
+    user: nutanix
+    privateKeyRef:
+      name: $CLUSTER_NAME -ssh-key
+      namespace: default
